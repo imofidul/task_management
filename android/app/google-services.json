@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "238337160224",
+    "project_id": "eldred-a6308",
+    "storage_bucket": "eldred-a6308.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238337160224:android:6bf876bec6e131c5f07845",
+        "android_client_info": {
+          "package_name": "com.elred.todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238337160224-01gkte25f602ou9tgo30dikhuj0k1dvs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elred.todo",
+            "certificate_hash": "c8fc2d9895ff5e2d2278b1a9f0a46b5c896f0bcd"
+          }
+        },
+        {
+          "client_id": "238337160224-ul76t3vgaamsqqu8q5fap1fl79ottnl1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elred.todo",
+            "certificate_hash": "744ccb04fec309c4366a86a2742046c36047b7a8"
+          }
+        },
+        {
+          "client_id": "238337160224-p4gbh95uvhr4007v041mgp999ls2k8g4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF2_BeUhRZgTBDmcxWnfurFvrQXCqGgOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238337160224-p4gbh95uvhr4007v041mgp999ls2k8g4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
