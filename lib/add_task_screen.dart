@@ -1,4 +1,5 @@
 import 'package:elred_todo/app_color.dart';
+import 'package:elred_todo/app_util.dart';
 import 'package:elred_todo/task_model.dart';
 import 'package:elred_todo/task_provider.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +17,10 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
   final _formKey = GlobalKey<FormState>();
   String _name = '';
   String _description = '';
-  String _selectedType = 'Business';
+  String _selectedType = TaskType.business.name;
   DateTime _selectedDate = DateTime.now();
 
-   final List<String> _types = ['Business', 'Personal',];
+   final List<String> _types = [TaskType.personal.name, TaskType.business.name,];
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(

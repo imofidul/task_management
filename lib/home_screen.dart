@@ -21,14 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Icon(Icons.add,color: AppColor.white,),
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => AddOrUpdateTaskScreen()));
+              context, MaterialPageRoute(builder: (_) => const AddOrUpdateTaskScreen()));
         },
       ),
       drawer: Drawer(
-        child: ListView(
-          children: const [
-            Text("Logout"),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: const [
+
+              Text("Logout"),
+            ],
+          ),
         ),
       ),
       body: DefaultTabController(
@@ -42,26 +46,34 @@ class _HomeScreenState extends State<HomeScreen> {
               expandedHeight: 200,
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
-                  title: const Padding(
+                  title:  Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        Expanded(
+                        const Expanded(
                           child: Text("Your\nThings",
                               style: TextStyle(
                                 color: Colors.white,
                               )),
                         ),
-                        Text("13\n personal",
-                            style: TextStyle(
+                        Consumer<TaskProvider>(builder: (_,provider,child){
+                          int personalCount=provider.tasks.where((element) => element.type==TaskType.personal.name).toList().length;
+                          return Text("$personalCount\n personal",
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12.0,
-                            )),
-                        Text("13\n business",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.0,
-                            ))
+                            ));
+                        },),
+                        Consumer<TaskProvider>(builder: (_,provider,child){
+                          int personalCount=provider.tasks.where((element) => element.type==TaskType.business.name).toList().length;
+                          return  Text("$personalCount\n business",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.0,
+                              ));
+                        },),
+
+
                       ],
                     ),
                   ),

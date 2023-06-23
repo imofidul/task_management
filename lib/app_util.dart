@@ -7,4 +7,7 @@ class AppUtil{
     final String formatted = formatter.format(date);
     return formatted;
   }
+
+
 }
+enum TaskType{personal,business}
