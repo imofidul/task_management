@@ -1,5 +1,6 @@
 import 'package:elred_todo/add_task_screen.dart';
 import 'package:elred_todo/app_color.dart';
+import 'package:elred_todo/app_util.dart';
 import 'package:elred_todo/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        backgroundColor: AppColor.primary,
+        child: Icon(Icons.add,color: AppColor.white,),
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => AddOrUpdateTaskScreen()));
@@ -35,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
           slivers: <Widget>[
             SliverAppBar(
               floating: true,
+              pinned:true,
+              snap: true,
               expandedHeight: 200,
               flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
@@ -66,10 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     fit: BoxFit.cover,
                   )),
               bottom: TabBar(
+                labelColor: AppColor.white,
+                unselectedLabelColor: AppColor.headingColor,
                 tabs: [
                   SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      child: const Tab(text: "Sept 5,2015")),
+                      child:  Tab(text: AppUtil.getFormattedDate(DateTime.now())),),
                   SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: const Tab(text: "68% done")),
@@ -81,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Consumer<TaskProvider>(builder: (_, taskProvider, child) {
                     if (taskProvider.tasks.isEmpty) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Text("No task found");
                     }
 
                     return Column(
@@ -113,6 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                             ),
                             itemCount: taskProvider.tasks.length,
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
                           ),
                         )
                       ],

@@ -6,6 +6,8 @@ class AppColor{
   static Color subHeadingColor=const Color(0xffdedede);
   static Color addTaskBackground=const Color(0xff46539e);
   static Color white=const Color(0xffffffff);
+  static Color primary= Colors.blueAccent;
+
 
 
 ///const Color(0xff46539e)
