@@ -114,7 +114,25 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (_, indax) => GestureDetector(
                               child: ListTile(
                                 title:
-                                    Text("${taskProvider.tasks[indax].name}",style: TextStyle(color: AppColor.headingColor),),
+                                    Row(
+                                      children: [
+                                        Text("${taskProvider.tasks[indax].name}",style: TextStyle(color: AppColor.headingColor),),
+                                        const Spacer(),
+                                        Row(
+                                          children: [
+                                            Checkbox(
+                                              value: taskProvider.tasks[indax].isDone??false,
+                                              onChanged: (value) {
+                                                bool isDone=taskProvider.tasks[indax].isDone??false;
+                                                taskProvider.tasks[indax].isDone=!isDone;
+                                               taskProvider.updateTask(taskProvider.tasks[indax]);
+                                              },
+                                            ),
+                                            Text('Done'),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                 subtitle: Text(
                                     "${taskProvider.tasks[indax].description}",style: TextStyle(color: AppColor.subHeadingColor)),
                                 leading: Icon(Icons.task),

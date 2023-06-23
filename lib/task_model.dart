@@ -4,8 +4,9 @@ class TaskModal {
   String? type;
   String? id;
   int? date;
+  bool? isDone;
 
-  TaskModal({this.name, this.description, this.type, this.id,this.date});
+  TaskModal({this.name, this.description, this.type, this.id,this.date,this.isDone});
 
   TaskModal.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -13,15 +14,17 @@ class TaskModal {
     type = json['type'];
     id = json['id'];
     date=json['date'];
+    isDone=json['isDone'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['type'] = this.type;
-    data['id'] = this.id;
-    data['date']=this.date;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['description'] = description;
+    data['type'] = type;
+    data['id'] = id;
+    data['date']=date;
+    data['isDone']=isDone;
     return data;
   }
 }
