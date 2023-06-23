@@ -1,4 +1,5 @@
 import 'package:elred_todo/add_task_screen.dart';
+import 'package:elred_todo/app_color.dart';
 import 'package:elred_todo/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -86,15 +87,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Inbox"),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16.0,top: 16),
+                          child: Text("INBOX",style: TextStyle(color: AppColor.textColor),),
+                        ),
                         Expanded(
                           child: ListView.builder(
                             itemBuilder: (_, indax) => GestureDetector(
                               child: ListTile(
                                 title:
-                                    Text("${taskProvider.tasks[indax].name}"),
+                                    Text("${taskProvider.tasks[indax].name}",style: TextStyle(color: AppColor.headingColor),),
                                 subtitle: Text(
-                                    "${taskProvider.tasks[indax].description}"),
+                                    "${taskProvider.tasks[indax].description}",style: TextStyle(color: AppColor.subHeadingColor)),
                                 leading: Icon(Icons.task),
                               ),
                               onTap: () {

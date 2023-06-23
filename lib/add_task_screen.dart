@@ -1,3 +1,4 @@
+import 'package:elred_todo/app_color.dart';
 import 'package:elred_todo/task_model.dart';
 import 'package:elred_todo/task_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
   String _selectedType = 'Business';
   DateTime _selectedDate = DateTime.now();
 
-   List<String> _types = ['Business', 'Personal',];
+   final List<String> _types = ['Business', 'Personal',];
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -55,10 +56,13 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: const Color(0xff555b95),
+      backgroundColor: AppColor.addTaskBackground,
       appBar: AppBar(
-        backgroundColor:  const Color(0xff555b95),
-        title: const Text('Add New Thing',style: TextStyle(color: Colors.white),),
+        leading: GestureDetector(child: Icon(Icons.arrow_back,color: AppColor.white,),onTap: (){
+          exitScreen();
+        },),
+        backgroundColor:  AppColor.addTaskBackground,
+        title: const Text('Add new thing',style: TextStyle(color: Colors.white),),
         actions:  [
           if(widget.taskModal!=null)
           GestureDetector(child: const Icon(Icons.delete),onTap: (){
@@ -75,6 +79,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
             children: [
               TextFormField(
                 initialValue: _name,
+                style: TextStyle(color: AppColor.white),
                 decoration: const InputDecoration(labelText: 'Name',hintStyle:TextStyle(color: Colors.white),),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -87,6 +92,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
                 },
               ),
               TextFormField(
+                style: TextStyle(color: AppColor.white),
                 initialValue: _description,
                 decoration: const InputDecoration(labelText: 'Description'),
                 validator: (value) {
@@ -110,15 +116,16 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
                 items: _types.map((type) {
                   return DropdownMenuItem<String>(
                     value: type,
-                    child: Text(type??""),
+                    child: Text(type??"",style: TextStyle(color: AppColor.headingColor),),
                   );
                 }).toList(),
               ),
               ListTile(
-                leading: const Icon(Icons.calendar_today),
-                title: const Text('Date'),
+                leading:  Icon(Icons.calendar_today,color:  AppColor.white,),
+                title:  Text('Date',style: TextStyle(color: AppColor.white),),
                 subtitle: Text(
                   '${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}',
+                    style: TextStyle(color: AppColor.white)
                 ),
                 onTap: () {
                   _selectDate(context);
@@ -126,6 +133,9 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff2ebaef)
+                ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
@@ -141,7 +151,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
 
                   }
                 },
-                child: const Text('Add your thing'),
+                child:  Text('ADD YOUR THING',style: TextStyle(color: AppColor.white),),
               ),
             ],
           ),
@@ -150,9 +160,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
     );
   }
   void exitScreen(){
-      Future.delayed(Duration(microseconds: 200),(){
         Navigator.of(context).pop();
-      });
   }
   void addTask()async{
     TaskModal taskModal=TaskModal();

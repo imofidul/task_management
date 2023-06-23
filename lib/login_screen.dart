@@ -1,4 +1,5 @@
 import 'package:elred_todo/login_provider.dart';
+import 'package:elred_todo/shared_pref_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     _googleSignIn.onCurrentUserChanged
         .listen((GoogleSignInAccount? account) async {
       if (account != null) {
+        SharedPrefManager.instance.saveData(SharedPrefManager.userId, account.id);
         if (mounted) {
           Navigator.pushAndRemoveUntil(
               context,
