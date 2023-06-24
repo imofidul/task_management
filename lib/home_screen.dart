@@ -17,24 +17,29 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
   return  Consumer<TaskProvider>(builder: (_,provider,child){
-    int personalCount = provider.tasks
+    int personalTaskCount = provider.tasks
+        .where((element) =>
+    element.type == TaskType.personal.name)
+        .toList()
+        .length;
+    int businessTaskCount = provider.tasks
         .where((element) =>
     element.type == TaskType.business.name)
         .toList()
         .length;
-    int countCompleted = provider.tasks
-        .where((element) => element.isDone == true)
+    int taskCompleted = provider.tasks
+        .where((element) => element.isDone??false)
         .toList()
         .length;
     int percentageInt=0;
     double fractionComplete=0;
     if(provider.tasks.isNotEmpty) {
       double percentage =
-          (countCompleted / provider.tasks.length) * 100;
+          (taskCompleted / provider.tasks.length) * 100;
       percentageInt = percentage.toInt();
 
       int totalTask=provider.tasks.length;
-      int completedTask=provider.tasks.where((element) => element.isDone=true).toList().length;
+      int completedTask=provider.tasks.where((element) => element.isDone??false).toList().length;
       if(totalTask!=0)
       {
         fractionComplete=completedTask/totalTask;
@@ -98,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ));
                               },
                             ),
-                            Text("$personalCount\n business",
+                            Text("$businessTaskCount\n business",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 12.0,
@@ -181,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text("$countCompleted",style: TextStyle(color: AppColor.white),),
+                              child: Text("$taskCompleted",style: TextStyle(color: AppColor.white),),
                             ))
                       ],
                     ),
