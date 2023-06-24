@@ -1,7 +1,7 @@
-import 'package:elred_todo/add_task_screen.dart';
-import 'package:elred_todo/app_color.dart';
-import 'package:elred_todo/app_util.dart';
-import 'package:elred_todo/task_provider.dart';
+import 'package:elred_todo/screen/add_task_screen.dart';
+import 'package:elred_todo/util/app_color.dart';
+import 'package:elred_todo/util/app_util.dart';
+import 'package:elred_todo/view_model/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';

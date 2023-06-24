@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:elred_todo/shared_pref_manager.dart';
-import 'package:elred_todo/task_model.dart';
+import 'package:elred_todo/data/respository/shared_pref_manager.dart';
+import 'package:elred_todo/data/modal/task_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class TaskRepository{

@@ -1,7 +1,7 @@
-import 'package:elred_todo/app_color.dart';
-import 'package:elred_todo/app_util.dart';
-import 'package:elred_todo/task_model.dart';
-import 'package:elred_todo/task_provider.dart';
+import 'package:elred_todo/util/app_color.dart';
+import 'package:elred_todo/util/app_util.dart';
+import 'package:elred_todo/data/modal/task_model.dart';
+import 'package:elred_todo/view_model/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

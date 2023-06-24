@@ -1,8 +1,8 @@
-import 'package:elred_todo/task_model.dart';
-import 'package:elred_todo/task_repository.dart';
+import 'package:elred_todo/data/modal/task_model.dart';
+import 'package:elred_todo/data/respository/task_repository.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'app_util.dart';
+import '../util/app_util.dart';
 
 class TaskProvider extends ChangeNotifier{
   List<TaskModal> tasks=[];

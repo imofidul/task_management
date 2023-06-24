@@ -1,6 +1,5 @@
-import 'package:elred_todo/login_provider.dart';
-import 'package:elred_todo/login_screen.dart';
-import 'package:elred_todo/task_provider.dart';
+import 'package:elred_todo/screen/login_screen.dart';
+import 'package:elred_todo/view_model/task_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => TaskProvider()),
 
       ],
