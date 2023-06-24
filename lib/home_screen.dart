@@ -3,8 +3,11 @@ import 'package:elred_todo/app_color.dart';
 import 'package:elred_todo/app_util.dart';
 import 'package:elred_todo/task_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
+
+import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,37 +17,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void logout() async {
+    try{
+      await GoogleSignIn().currentUser?.clearAuthCache();
+      await GoogleSignIn().disconnect();
+    }catch(e){
+     // Util.log('Could not disconnect');
+    }
+    if(mounted) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute<void>(
+              builder: (BuildContext context) => const LoginScreen()),
+              (route) => false);
+    }
+  }
   @override
   Widget build(BuildContext context) {
   return  Consumer<TaskProvider>(builder: (_,provider,child){
-    int personalTaskCount = provider.tasks
-        .where((element) =>
-    element.type == TaskType.personal.name)
-        .toList()
-        .length;
-    int businessTaskCount = provider.tasks
-        .where((element) =>
-    element.type == TaskType.business.name)
-        .toList()
-        .length;
-    int taskCompleted = provider.tasks
-        .where((element) => element.isDone??false)
-        .toList()
-        .length;
-    int percentageInt=0;
-    double fractionComplete=0;
-    if(provider.tasks.isNotEmpty) {
-      double percentage =
-          (taskCompleted / provider.tasks.length) * 100;
-      percentageInt = percentage.toInt();
 
-      int totalTask=provider.tasks.length;
-      int completedTask=provider.tasks.where((element) => element.isDone??false).toList().length;
-      if(totalTask!=0)
-      {
-        fractionComplete=completedTask/totalTask;
-      }
-    }
+
       return Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: AppColor.primary,
@@ -61,8 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView(
-              children: const [
-                Text("Logout"),
+              children:  [
+                GestureDetector(child: const Text("Logout"),onTap: (){
+                  logout();
+                },),
               ],
             ),
           ),
@@ -80,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(left: 8.0,right: 8),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
+
                       children: [
                         Row(
                           children: [
@@ -89,21 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.white,
                                   )),
                             ),
-                            Consumer<TaskProvider>(
-                              builder: (_, provider, child) {
-                                int personalCount = provider.tasks
-                                    .where((element) =>
-                                element.type == TaskType.personal.name)
-                                    .toList()
-                                    .length;
-                                return Text("$personalCount\n personal",
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12.0,
-                                    ));
-                              },
-                            ),
-                            Text("$businessTaskCount\n business",
+                            Text("${provider.personalTaskCount}\n personal",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12.0,
+                                )),
+                            Text("${provider.businessTaskCount}\n business",
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 12.0,
@@ -112,9 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Row(
                           children: [
-                            Expanded(child: Text(AppUtil.getFormattedDate(DateTime.now()),style: TextStyle(fontSize: 12),)),
-
-                            Expanded(child: Text( "$percentageInt% done",style: const TextStyle(fontSize: 12))),
+                            Expanded(child: Text(AppUtil.getFormattedDate(DateTime.now()),style: const TextStyle(fontSize: 12),)),
+                            Expanded(child: Text( "${provider.percentageInt}% done",style: const TextStyle(fontSize: 12))),
                           ],
                         )
                       ],
@@ -130,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
-                  LinearPercentIndicator(percent:fractionComplete ,),
+                  LinearPercentIndicator(percent:provider.fractionComplete ,),
                   Padding(
                     padding: const EdgeInsets.only(left: 16.0, top: 16),
                     child: Text(
@@ -186,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text("$taskCompleted",style: TextStyle(color: AppColor.white),),
+                              child: Text("${provider.taskCompleted}",style: TextStyle(color: AppColor.white),),
                             ))
                       ],
                     ),
