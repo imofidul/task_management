@@ -19,6 +19,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
   String _description = '';
   String _selectedType = TaskType.business.name;
   DateTime _selectedDate = DateTime.now();
+  bool isDone=false;
 
    final List<String> _types = [TaskType.personal.name, TaskType.business.name,];
 
@@ -42,6 +43,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
         _selectedDate=DateTime.fromMillisecondsSinceEpoch(widget.taskModal?.date??233);
         _description=widget.taskModal?.description??"";
         _selectedType=widget.taskModal?.type??"Personal";
+        isDone=widget.taskModal?.isDone??false;
         setState(() {
 
         });
@@ -132,6 +134,20 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
                   _selectDate(context);
                 },
               ),
+              if(widget.taskModal!=null)
+              Row(
+                children: [
+                  Checkbox(
+                    value:isDone,
+                    onChanged: (value) {
+                     setState(() {
+                       isDone=!isDone;
+                     });
+                    },
+                  ),
+                  const Text('Done'),
+                ],
+              ),
 
               const SizedBox(height: 16.0),
               ElevatedButton(
@@ -153,7 +169,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
 
                   }
                 },
-                child:  Text('ADD YOUR THING',style: TextStyle(color: AppColor.white),),
+                child:  Text(widget.taskModal==null?'ADD YOUR THING':"UPDATE YOUR THING",style: TextStyle(color: AppColor.white),),
               ),
             ],
           ),
@@ -169,6 +185,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
     taskModal.name=_name;
     taskModal.type=_selectedType;
     taskModal.description=_description;
+    taskModal.isDone=false;
     taskModal.date=_selectedDate.millisecondsSinceEpoch;
     await context.read<TaskProvider>().saveTask(taskModal);
 
@@ -180,6 +197,7 @@ class _AddOrUpdateTaskScreenState extends State<AddOrUpdateTaskScreen> {
     taskModal.date=_selectedDate.millisecondsSinceEpoch;
     taskModal.description=_description;
     taskModal.id=widget.taskModal!.id!;
+    taskModal.isDone=isDone;
     await context.read<TaskProvider>().updateTask(taskModal);
 
   }
